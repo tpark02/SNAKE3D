@@ -12,15 +12,19 @@ public class Snake : MonoBehaviour
     public static bool[] rayHit = new bool[4];
     public GameObject[] rayCastBox = new GameObject[4];
     public GameObject tailPrefab;
+    public GameObject gameOverText;
 
     private Action callbck = null;
     private Vector3 moveDirection; // Initial move direction    
     private float distance;
     private float delay = 0.0f;
     private float stepTime = 0.5f;
+    private int rayCastCnt = 4;
+
     void Awake()
     {
         instance = this;
+        gameOverText.SetActive(false);
     }
 
     void Start()
@@ -32,9 +36,7 @@ public class Snake : MonoBehaviour
 
     void MoveBySteps()
     {
-        int cnt = rayHit.Select(x => x).Where(x => x == true).Count();
-            
-        if (cnt == 1)
+        if (rayCastCnt == 1)
         {
             int idx = rayHit.ToList().IndexOf(true);
             RotateTowardsDirection(idx);
@@ -47,22 +49,27 @@ public class Snake : MonoBehaviour
             for (int i = t.tailSegment.Count - 1; i > 0; i--)
             {
                 t.tailSegment[i].position = t.tailSegment[i - 1].position;
+                t.tailSegment[i].tag = "Tail";
             }
             t.tailSegment[0].position = transform.position;
         }
 
         Vector3 newPosition = this.transform.localPosition + this.transform.TransformDirection(moveDirection * distance);
-        this.transform.localPosition = newPosition;
+        this.transform.localPosition = newPosition;     
     }
 
     void Update()
     {
-        HandleInput();
+        rayCastCnt = rayHit.Select(x => x).Where(x => x == true).Count();
+
+        if (rayCastCnt >= 4) // NEW: Block input if rotating
+            HandleInput();
     }
 
     void RotateTowardsDirection(int dir)
     {
         Debug.Log("Direction Idx : " + dir);
+
         float angle = 90f; // 90 degrees in radians
         Vector3 vec = Vector3.one;
         Vector3 cameraVec = Vector3.one;
@@ -84,7 +91,7 @@ public class Snake : MonoBehaviour
         {
             vec = Vector3.right;
         } 
-        transform.Rotate(vec, angle, Space.Self);
+        transform.Rotate(vec, angle, Space.Self);        
         callbck?.Invoke();
     }
 
@@ -121,19 +128,21 @@ public class Snake : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            GameObject newSegment = Instantiate(tailPrefab);
-            newSegment.transform.position = transform.position;
-            Tail.instance.tailSegment.Add(newSegment.transform);
+            var t = Instantiate(tailPrefab);
+            t.transform.position = transform.position;
+            Tail.instance.tailSegment.Add(t.transform);
         }
         ScoreManager.instance.AddScore(10); // +10 points per food
 
     }
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("Tail"))
+        if (collision.CompareTag("Tail") == true)
         {
             // Game Over
             Debug.Log("Game Over");
+            CancelInvoke("MoveBySteps");
+            gameOverText.SetActive(true);
         }
     }
 }
