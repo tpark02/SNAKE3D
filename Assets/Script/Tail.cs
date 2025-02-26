@@ -10,5 +10,14 @@ public class Tail : MonoBehaviour
     void Start()
     {
         instance = this;
-    }    
+    }  
+    
+    public void ResetTail()
+    {
+        foreach (Transform segment in tailSegment)
+        {
+            Destroy(segment.gameObject);
+        }
+        tailSegment.Clear();
+    }
 }

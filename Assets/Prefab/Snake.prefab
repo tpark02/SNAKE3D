@@ -156,10 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayCastBox:
-  - {fileID: 2580757578769934460}
-  - {fileID: 1974526511785304865}
   - {fileID: 201982258339497422}
+  - {fileID: 2580757578769934460}
   - {fileID: 1827435121679832838}
+  - {fileID: 1974526511785304865}
   tailPrefab: {fileID: 4431992551776082931, guid: 711cedf310223aa41ac6de6009a6d3bf, type: 3}
 --- !u!1 &4057823548031476681
 GameObject:
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5191676381024023941}
   - component: {fileID: 4803905570521073293}
   m_Layer: 0
-  m_Name: TailManager
+  m_Name: Tail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 3
-  TailSegment: []
+  tailSegment: []
 --- !u!1001 &267510880961762875
 PrefabInstance:
   m_ObjectHideFlags: 0

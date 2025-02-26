@@ -12,7 +12,6 @@ public class Snake : MonoBehaviour
     public static bool[] rayHit = new bool[4];
     public GameObject[] rayCastBox = new GameObject[4];
     public GameObject tailPrefab;
-    public GameObject gameOverText;
 
     private Action callbck = null;
     private Vector3 moveDirection; // Initial move direction    
@@ -24,13 +23,16 @@ public class Snake : MonoBehaviour
     void Awake()
     {
         instance = this;
-        gameOverText.SetActive(false);
     }
 
     void Start()
     {
         distance = this.transform.localScale.x * 0.8f;
         moveDirection = Vector3.forward;
+        
+    }
+    public void StartGame()
+    {
         InvokeRepeating("MoveBySteps", delay, stepTime);
     }
 
@@ -142,7 +144,7 @@ public class Snake : MonoBehaviour
             // Game Over
             Debug.Log("Game Over");
             CancelInvoke("MoveBySteps");
-            gameOverText.SetActive(true);
+            GameManager.instance.gameOverPanel.SetActive(true);
         }
     }
 }
