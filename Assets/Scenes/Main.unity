@@ -286,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPanel: {fileID: 1596154532}
   gameOverPanel: {fileID: 268543906}
+  globalVolume: {fileID: 585513543}
   startButton: {fileID: 1611776677}
   restartButton: {fileID: 1355880916}
   exitButton1: {fileID: 1160623437}

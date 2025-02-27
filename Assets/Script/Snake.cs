@@ -144,6 +144,7 @@ public class Snake : MonoBehaviour
             // Game Over
             Debug.Log("Game Over");
             CancelInvoke("MoveBySteps");
+            GameManager.instance.globalVolume.SetActive(true);
             GameManager.instance.gameOverPanel.SetActive(true);
         }
     }

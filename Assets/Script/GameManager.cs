@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public GameObject startPanel;
     public GameObject gameOverPanel;
+    public GameObject globalVolume;
 
     public Button startButton;
     public Button restartButton;
@@ -21,10 +22,12 @@ public class GameManager : MonoBehaviour
 
         startButton.onClick.AddListener(() => { 
             startPanel.SetActive(false);
+            globalVolume.SetActive(false);
             Snake.instance.StartGame();
         });
         restartButton.onClick.AddListener(() => { 
             gameOverPanel.SetActive(false);
+            globalVolume.SetActive(false);
             ScoreManager.instance.ResetScore();
             Tail.instance.ResetTail();
             Snake.instance.StartGame();
