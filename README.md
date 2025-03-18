@@ -11,10 +11,6 @@ Welcome to SNAKE3D, a fully 3D reimagining of the classic Snake game! This proje
 
 🚀 Getting Started
 Clone the repository and start playing:
-
-sh
-복사
-편집
 git clone https://github.com/tpark02/SNAKE3D.git
 cd SNAKE3D
 Run the game in your preferred development environment. Detailed instructions can be found in the Setup Guide.
